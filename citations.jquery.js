@@ -46,9 +46,11 @@
             //and show/hide them accordingly.
             $(".citation-item").each(function(index){
 
-              if($(this).text().toLowerCase().indexOf($( settings.searchBar ).val().toLowerCase())>-1){
+              if((idx = $(this).text().toLowerCase().indexOf($( settings.searchBar ).val().toLowerCase()))>-1){
+
                 $(this).show();
               }else{
+
                 $(this).hide();
               }
             });
