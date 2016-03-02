@@ -1,7 +1,7 @@
 # citations.jquery.js
-A JQuery plugin to ease citations.
+A JQuery plugin to ease citations in html documents.
 
-![alt text](http://imgur.com/xRaEhYY)
+![alt tag](http://imgur.com/xRaEhYY)
 
 ### Roadmap
 
@@ -50,7 +50,7 @@ Given a `publications.json` file looking like :
 ]
 ```
 
-The following will populate the `#journal` element with a `<ul><li>` structure.
+The following will populate the `#papers` element with a `<ul><li>` structure.
 
 ```javascript
 $("#papers").cite({
