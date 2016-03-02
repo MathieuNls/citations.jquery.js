@@ -1,3 +1,13 @@
+// # Released under MIT License
+//
+// Copyright (c) 2016 Mathieu Nayrolles.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
 (function ( $ ) {
 
     $.fn.cite = function ( options ) {
@@ -14,7 +24,7 @@
             filterValue: null,
             myLastName: "",
             myFirstName: "",
-            debug: true,
+            debug: false,
             groupBy:null,
             preGroup:null,
             postGroup: null,
@@ -22,12 +32,18 @@
             searchBar:null
         }, options );
 
+        /**
+         * If a searchbar is specified, monitor its inputs and show/hide
+         * matching items
+         */
         if(settings.searchBar !== null){
+
           $( settings.searchBar ).keyup(function( event ) {
             if ( event.which == 13 ) {
                event.preventDefault();
             }
-
+            //check if each item contains the searchbar's value
+            //and show/hide them accordingly.
             $(".citation-item").each(function(index){
 
               if($(this).text().toLowerCase().indexOf($( settings.searchBar ).val().toLowerCase())>-1){
@@ -36,11 +52,15 @@
                 $(this).hide();
               }
             });
+
           });
         }
 
+        //will be used in callback
         var target = this;
 
+        //get the items to display and add them to
+        //the target
         getItems(settings).then(function(data){
           items = data;
           pluginLog(settings.debug, items);
@@ -51,6 +71,13 @@
 
 }(jQuery));
 
+/**
+ * sort the citations according to settings.sortBy
+ * and settings.orderType
+ * @param  Array citations
+ * @param  Array settings
+ * @return Array
+ */
 function sortCitations(citations, settings){
   if(settings.sortBy != null){
 
@@ -68,6 +95,13 @@ function sortCitations(citations, settings){
   return citations;
 }
 
+/**
+ * Filter citations according to settings.filterBy
+ * and  settings.filterValue
+ * @param  Array citations
+ * @param  Array settings
+ * @return Array
+ */
 function filterCitation(citations, settings){
   if(settings.filterBy !== null && settings.filterValue !== null){
 
@@ -81,6 +115,14 @@ function filterCitation(citations, settings){
   return citations;
 }
 
+/**
+ * Invokes the filter, sort and construct functions.
+ * Wraps their results in <ul>
+ *
+ * @param  Array citations
+ * @param  Array settings
+ * @return Array
+ */
 function sortFilterAndConstruct(citations, settings){
   citations = filterCitation(citations, settings);
   citations = sortCitations(citations, settings);
@@ -96,6 +138,12 @@ function sortFilterAndConstruct(citations, settings){
   return ulLis;
 }
 
+/**
+ * Constructs li items
+ * @param  Array citations
+ * @param  Array settings
+ * @return Array
+ */
 function constructItems(citations, settings){
   var items = [];
   citations.forEach(function( citation ) {
@@ -161,6 +209,11 @@ function constructItems(citations, settings){
   return items;
 }
 
+/**
+ * Get items
+ * @param  Array settings
+ * @return Array
+ */
 function getItems(settings){
 
   return $.getJSON(settings.file).then(function( citations ) {
