@@ -1,7 +1,7 @@
 # citations.jquery.js
 A JQuery plugin to ease citations in html documents.
 
-![alt tag](http://imgur.com/xRaEhYY)
+![alt tag](https://cloud.githubusercontent.com/assets/7218861/13464046/3abb0ac6-e05d-11e5-94d4-7ff27ce8bc2a.png)
 
 ### Roadmap
 
