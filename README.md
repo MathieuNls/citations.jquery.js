@@ -24,6 +24,8 @@ Download the [latest version of the plugin](https://github.com/MathieuNls/citati
 
 ```html
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js">
+</script>
 <script type="text/javascript" src="path/to/citations.jquery.js"></script>
 ```
 ### How to use
