@@ -39,13 +39,13 @@
           });
         }
 
-        var ul = this;
+        var target = this;
 
         getItems(settings).then(function(data){
           items = data;
           pluginLog(settings.debug, items);
-          ul.html(items.join(""));
-          return ul;
+          target.html(items.join(""));
+          return target;
         });
     };
 
